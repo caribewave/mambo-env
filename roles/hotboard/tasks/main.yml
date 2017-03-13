@@ -1,0 +1,16 @@
+---
+- name: "Create Hot-board resources directory"
+  file: path=/opt/hot-board/imagery state=directory mode=0755
+- name: "Create Hot-board conf directory"
+  file: path=/etc/hot-board state=directory mode=0755
+- name: Copy Hot-board docker-compose file
+  copy: src=hot-board.yml dest=/opt/hot-board/hot-board.yml
+- name: Copy hot-board service
+  copy: src=hot-board.service dest=/etc/systemd/system/hot-board.service
+- name: Assign rights to services
+  shell: chmod 755 -R /etc/systemd/system
+#- name: Enable service at boot
+#  become: true
+#  shell: systemctl enable hot-board.service
+- name: Build docker image for Hot-board Api
+  shell: docker build -t hot-board/hot-board-api /vagrant/api

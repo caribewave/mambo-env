@@ -1,0 +1,37 @@
+{
+  "name": "hot-board-api",
+  "version": "1.0.0",
+  "description": "A simple REST API to coordinate drone imagery, volunteers, and provide a live-dashboard of ground operations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jawg/hot-board.git"
+  },
+  "keywords": [
+    "OpenStreetMap",
+    "OpenDroneMap",
+    "Drone",
+    "HOT",
+    "Humanitarian",
+    "Volunteer",
+    "Tsunami",
+    "Earthquake",
+    "CaribeWave"
+  ],
+  "author": "Loic Ortola",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jawg/hot-board/issues"
+  },
+  "homepage": "https://github.com/jawg/hot-board#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "fstream": "^1.0.11",
+    "multer": "^1.3.0",
+    "unzip": "^0.1.11"
+  }
+}

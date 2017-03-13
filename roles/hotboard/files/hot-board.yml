@@ -1,0 +1,32 @@
+version: '2'
+networks:
+  bridged:
+    driver: bridge
+services:
+  opendronemap:
+    container_name: opendronemap
+    image: opendronemap/opendronemap:latest
+    networks:
+      - bridged
+    logging:
+      options:
+        max-size: 4m
+        max-file: "10"
+    volumes:
+      - /opt/hot-board/imagery/images:/code/images
+      - /opt/hot-board/imagery/orthophoto:/code/odm_orthophoto
+      - /opt/hot-board/imagery/texturing:/code/odm_texturing
+  hot-board-api:
+    container_name: hot-board-api
+    image: hot-board/hot-board-api:latest
+    networks:
+      - bridged
+    ports:
+      - "3000:3000"
+    logging:
+      options:
+        max-size: 4m
+        max-file: "10"
+    volumes:
+      - /opt/hot-board/imagery/images:/opt/hot-board/imagery/images
+      - /opt/hot-board/imagery/orthophoto:/opt/hot-board/imagery/orthophoto

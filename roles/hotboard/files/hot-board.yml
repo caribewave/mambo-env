@@ -3,9 +3,21 @@ networks:
   bridged:
     driver: bridge
 services:
+  gdal2tiles:
+    container_name: gdal2tiles
+    image: hot-board/gdal2tiles
+    networks:
+      - bridged
+    logging:
+      options:
+        max-size: 4m
+        max-file: "10"
+    volumes:
+      - /opt/hot-board/imagery/orthophoto:/data/input
+      - /opt/hot-board/imagery/tiles:/data/output
   opendronemap:
     container_name: opendronemap
-    image: opendronemap/opendronemap:latest
+    image: hot-board/opendronemapd:latest
     networks:
       - bridged
     logging:

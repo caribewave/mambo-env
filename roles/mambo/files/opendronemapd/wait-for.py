@@ -27,7 +27,6 @@ if __name__ == '__main__':
         if os.path.isfile('/code/images/trigger.lck'):
             log.ODM_INFO('Initializing OpenDroneMap app - %s' % system.now())
             os.remove('/code/images/trigger.lck')
-
             args = config.config()
 
             # Force to provide the images path

@@ -11,7 +11,7 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/xenial64"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -21,8 +21,8 @@ Vagrant.configure(2) do |config|
   # Map specific ports onto host
   config.vm.network "forwarded_port", guest: 80, host: 8080
 
-  config.vm.hostname = "hot-board"
-  config.hostsupdater.aliases = ["hot-board.jawg.io.local"]
+  config.vm.hostname = "mambo"
+  config.hostsupdater.aliases = ["mambo.jawg.io.local"]
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -54,7 +54,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "ansible_local" do |ansible|
     ansible.groups = {
-      'hot-board' => ['default']
+      'mambo' => ['default']
     }
     ansible.playbook = "site.yml"
     ansible.galaxy_role_file = "requirements.yml"

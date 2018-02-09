@@ -1,0 +1,44 @@
+version: '2'
+networks:
+  bridged:
+    driver: bridge
+services:
+  gdal2tiles:
+    container_name: gdal2tiles
+    image: mambo/gdal2tiles
+    networks:
+      - bridged
+    logging:
+      options:
+        max-size: 4m
+        max-file: "10"
+    volumes:
+      - /opt/mambo/imagery/orthophoto:/data/input
+      - /opt/mambo/imagery/tiles:/data/output
+  opendronemap:
+    container_name: opendronemap
+    image: mambo/opendronemapd:latest
+    networks:
+      - bridged
+    logging:
+      options:
+        max-size: 4m
+        max-file: "10"
+    volumes:
+      - /opt/mambo/imagery/images:/code/images
+      - /opt/mambo/imagery/orthophoto:/code/odm_orthophoto
+      - /opt/mambo/imagery/texturing:/code/odm_texturing
+  mambo-api:
+    container_name: mambo-api
+    image: mambo/mambo-api:latest
+    networks:
+      - bridged
+    ports:
+      - "3000:3000"
+    logging:
+      options:
+        max-size: 4m
+        max-file: "10"
+    volumes:
+      - /opt/mambo/imagery/images:/opt/hot-board/imagery/images
+      - /opt/mambo/imagery/orthophoto:/opt/hot-board/imagery/orthophoto

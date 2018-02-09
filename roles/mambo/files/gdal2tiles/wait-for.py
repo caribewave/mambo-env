@@ -14,8 +14,9 @@ if __name__ == '__main__':
         if os.path.isfile('/data/input/trigger.lck'):
             logging.warning('Initializing Gdal2Tiles app - %s' % datetime.datetime.time(datetime.datetime.now()))
             os.remove('/data/input/trigger.lck')
-            os.system('gdal2tiles.py input/odm_orthophoto.tif output')
-            open('/data/output/trigger.lck', 'a').close()
+            d = datetime.datetime.now()
+            os.system('gdal2tiles.py input/odm_orthophoto.tif ' % d)
+            open('/data/' % d % '/trigger.lck', 'a').close()
             logging.warning('Gdal2Tiles app finished at - %s' % datetime.datetime.time(datetime.datetime.now()))
         else:
             logging.warning('Gdal2Tiles noop')

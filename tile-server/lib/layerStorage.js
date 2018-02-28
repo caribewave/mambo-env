@@ -46,12 +46,12 @@ function deleteLayer(layer) {
 }
 
 
-function purgeCache(layer) {
+function flushCache(layer) {
   fs.remove(conf.dataPath + "/" + layer, (err) => {
     if (err) {
       throw err;
     }
-    console.log('Successfully purged cache for layer ' + layer);
+    console.log('Successfully flushed cache for layer ' + layer);
   });
 }
 
@@ -61,5 +61,5 @@ module.exports = {
   getLayers: getLayers,
   addLayer: addLayer,
   deleteLayer: deleteLayer,
-  purgeCache: purgeCache
+  flushCache: flushCache
 };

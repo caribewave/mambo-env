@@ -54,12 +54,12 @@ const createProxyLayer = (strata, layer) => {
 };
 
 const createMBTilesLayer = (strata, layer) => {
-  console.log('Adding mbtiles layer ' + layer.name);
+  console.log('Adding MBTiles layer ' + layer.name);
   strata.layer(layer.name)
       .route('*.png')
       .use(disk.cache({dir: conf.dataPath + '/' + layer.name}))
       .use(mbtiles({
-        pathname: 'test.mbtiles'
+        pathname: conf.dataPath + '/' + layer.name + '.mbtiles'
       }));
 };
 
@@ -97,13 +97,19 @@ function onLayerDelete(req, res) {
   resetTileServer();
 }
 
-function onLayerCachePurge(req, res) {
+function onLayerCacheFlush(req, res) {
   if (!req.params.name) {
     return res.end(400);
   }
-  console.log('Will purge cache data for layer ' + req.params.name);
-  layerStorage.purgeCache(req.params.name);
+  console.log('Will flush cache data for layer ' + req.params.name);
+  layerStorage.flushCache(req.params.name);
   res.end();
+}
+
+function onLayersGet(req, res) {
+  layerStorage.getLayers((layers) => {
+    res.send(layers);
+  });
 }
 
 function resetTileServer() {
@@ -135,11 +141,12 @@ function initTileServer() {
     app = express();
     app.use(tilestrata.middleware({
       server: strata,
-      prefix: '/map'
+      prefix: '/maps'
     }));
-    app.post('/layer', bodyParser.json(), onLayerAdd);
-    app.delete('/layer/:name', onLayerDelete);
-    app.delete('/layer/purge/:name', onLayerCachePurge);
+    app.get('/layers', onLayersGet);
+    app.post('/layers', bodyParser.json(), onLayerAdd);
+    app.delete('/layers/:name', onLayerDelete);
+    app.delete('/layers/flush/:name', onLayerCacheFlush);
     server = app.listen(3000, () => console.log('App listening on port 3000!'));
   });
   

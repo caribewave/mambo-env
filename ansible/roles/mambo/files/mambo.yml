@@ -1,7 +1,9 @@
-version: '2'
+version: '3'
+  
 networks:
   bridged:
     driver: bridge
+
 services:
   gdal2tiles:
     container_name: gdal2tiles
@@ -13,8 +15,8 @@ services:
         max-size: 4m
         max-file: "10"
     volumes:
-      - /opt/mambo/imagery/orthophoto:/data/input
-      - /opt/mambo/imagery/tiles:/data/output
+      - /opt/mambo/imagery/tmp_orthophoto_tif:/data/input
+      - /opt/mambo/tiles:/data/output
   opendronemap:
     container_name: opendronemap
     image: mambo/opendronemapd:latest
@@ -25,9 +27,9 @@ services:
         max-size: 4m
         max-file: "10"
     volumes:
-      - /opt/mambo/imagery/images:/code/images
-      - /opt/mambo/imagery/orthophoto:/code/odm_orthophoto
-      - /opt/mambo/imagery/texturing:/code/odm_texturing
+      - /opt/mambo/imagery/tmp_drone_imgs:/code/images
+      - /opt/mambo/imagery/tmp_orthophoto_tif:/code/odm_orthophoto
+      - /opt/mambo/imagery/tmp_orthophoto_texturing:/code/odm_texturing
   mambo-api:
     container_name: mambo-api
     image: mambo/mambo-api:latest
@@ -40,5 +42,5 @@ services:
         max-size: 4m
         max-file: "10"
     volumes:
-      - /opt/mambo/imagery/images:/opt/hot-board/imagery/images
-      - /opt/mambo/imagery/orthophoto:/opt/hot-board/imagery/orthophoto
+      - /opt/mambo/imagery/tmp_drone_imgs:/opt/mambo/imagery/images
+      - /opt/mambo/imagery/tmp_orthophoto_tif:/opt/mambo/imagery/orthophoto

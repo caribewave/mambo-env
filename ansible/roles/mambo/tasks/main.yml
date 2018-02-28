@@ -1,6 +1,12 @@
 ---
 - name: "Create mambo resources directory"
   file: path=/opt/mambo/imagery state=directory mode=0755
+- name: "Create mambo orthophoto tif tmp directory"
+  file: path=/opt/mambo/imagery/tmp_orthophoto_tif state=directory mode=0755
+- name: "Create mambo orthophoto texturing tmp directory"
+  file: path=/opt/mambo/imagery/tmp_orthophoto_texturing state=directory mode=0755
+- name: "Create mambo drone imagery tmp directory"
+  file: path=/opt/mambo/imagery/tmp_drone_imgs state=directory mode=0755
 - name: "Create mambo conf directory"
   file: path=/etc/mambo state=directory mode=0755
 - name: Copy mambo docker-compose file
@@ -12,10 +18,22 @@
 - name: Copy mambo docker images gdal2tiles
   copy: src=gdal2tiles/ dest=/opt/mambo/gdal2tiles/ directory_mode=0755
 - name: Build docker image for opendronemapd
-  shell: docker build -t mambo/opendronemapd /opt/mambo/opendronemapd
+  docker_image: 
+    path: /opt/mambo/opendronemapd
+    name: mambo/opendronemapd
+    state: present
 - name: Build docker image for gdal2tiles
-  shell: docker build -t mambo/gdal2tiles /opt/mambo/gdal2tiles
+  docker_image: 
+    path: /opt/mambo/gdal2tiles
+    name: mambo/gdal2tiles
+    state: present
 - name: Build docker image for mambo Api
-  shell: docker build -t mambo/mambo-api /vagrant/api
+  docker_image: 
+    path: /vagrant/api
+    name: mambo/mambo-api
+    state: present
 - name: Assign rights to services
-  shell: chmod 755 -R /etc/systemd/system
+  file:
+    path: /etc/systemd/system
+    recurse: yes
+    mode: 0755

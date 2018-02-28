@@ -1,0 +1,19 @@
+[Unit]
+Description= The main Mambo service runner
+Requires=docker.service network-online.target
+After=docker.service network-online.target
+
+[Service]
+WorkingDirectory=/etc/compose
+Type=oneshot
+RemainAfterExit=yes
+
+
+ExecStart=/usr/bin/docker-compose -f /opt/mambo/mambo.yml up --force-recreate -d
+ExecStop=/usr/bin/docker-compose -f /opt/mambo/mambo.yml down
+
+ExecReload=/usr/bin/docker-compose -f /opt/mambo/mambo.yml pull --quiet --parallel
+ExecReload=/usr/bin/docker-compose -f /opt/mambo/mambo.yml up -d
+
+[Install]
+WantedBy=multi-user.target

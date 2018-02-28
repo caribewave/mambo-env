@@ -1,5 +1,5 @@
-# hot-board
-POC: A white-box of tools for on-site coordination of rescue teams
+# Mambo
+POC: A white-box of tools for on-site coordination of rescue teams and live sensor-data monitoring
 
 ## Environment
 
@@ -15,6 +15,10 @@ Install the  vagrant-hostupdater plugin
 ```sh
 vagrant plugin install vagrant-hostsupdater
 ```
+Install the  vagrant-vbguest plugin
+```sh
+vagrant plugin install vagrant-vbguest
+```
 
 ### VM bootstrap
 Open your favorite shell in the project root folder and run  
@@ -26,4 +30,6 @@ This may take several minutes.
 
 N.B.: you may have to input your **sudo password**. Otherwise, run vagrant up under a privileged user.
 
-Once all the steps are done, check everything works by browsing http://hot-board.jawg.io.local
+Once all the steps are done, check everything works by browsing http://mambo.jawg.io.local
+
+You can log into your vagrant machine by typing ```vagrant ssh```

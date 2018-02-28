@@ -1,3 +1,0 @@
----
-[mambo]
-localhost ansible_connection=local

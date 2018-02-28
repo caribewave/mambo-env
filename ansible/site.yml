@@ -1,7 +1,7 @@
 ---
 - hosts: all
   user: vagrant
-  become: true
+  become: yes
   roles:
-    - docker
-    - mambo
+      - docker
+      - mambo

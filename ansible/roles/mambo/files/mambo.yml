@@ -30,17 +30,46 @@ services:
       - /opt/mambo/imagery/tmp_drone_imgs:/code/images
       - /opt/mambo/imagery/tmp_orthophoto_tif:/code/odm_orthophoto
       - /opt/mambo/imagery/tmp_orthophoto_texturing:/code/odm_texturing
-  mambo-api:
-    container_name: mambo-api
-    image: mambo/mambo-api:latest
+  mambo-dashboard-www:
+    container_name: mambo-dashboard-www
+    image: handmambo/dashboard-www:latest
     networks:
       - bridged
     ports:
-      - "3000:3000"
+      - "80:3000"
     logging:
       options:
         max-size: 4m
         max-file: "10"
     volumes:
+      - /etc/mambo/dashboard-www/conf.js:/usr/share/nginx/html/conf/conf.js:ro
+  mambo-sensor-api:
+    container_name: mambo-sensor-api
+    image: handmambo/sensor-api:latest
+    networks:
+      - bridged
+    ports:
+      - "8082:8082"
+    logging:
+      options:
+        max-size: 4m
+        max-file: "10"
+    volumes:
+      - /etc/mambo/sensor-api/conf.js:/opt/mambo/conf/conf.js:ro
+  mambo-tile-api:
+    container_name: mambo-tile-api
+    image: handmambo/tile-api:latest
+    networks:
+      - bridged
+    ports:
+      - "8081:8081"
+    logging:
+      options:
+        max-size: 4m
+        max-file: "10"
+    volumes:
+      - /etc/mambo/tile-api/conf.js:/opt/mambo/conf/conf.js:ro
+      - /opt/mambo/tiles:/opt/mambo/tiles
+      - /opt/mambo/assets:/opt/mambo/assets
       - /opt/mambo/imagery/tmp_drone_imgs:/opt/mambo/imagery/images
       - /opt/mambo/imagery/tmp_orthophoto_tif:/opt/mambo/imagery/orthophoto

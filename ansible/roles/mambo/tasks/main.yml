@@ -1,4 +1,8 @@
 ---
+- name: "Create mambo tiles directory"
+  file: path=/opt/mambo/tiles state=directory mode=0755
+- name: "Create mambo assets directory"
+  file: path=/opt/mambo/assets state=directory mode=0755
 - name: "Create mambo resources directory"
   file: path=/opt/mambo/imagery state=directory mode=0755
 - name: "Create mambo orthophoto tif tmp directory"
@@ -27,10 +31,17 @@
     path: /opt/mambo/gdal2tiles
     name: mambo/gdal2tiles
     state: present
-- name: Build docker image for mambo Api
+- name: Build docker image for mambo tile Api
   docker_image: 
-    path: /vagrant/api
-    name: mambo/mambo-api
+    name: hello-world
+    state: present
+- name: Build docker image for mambo dashboard Website
+  docker_image: 
+    name: handmambo/dashboard-www
+    state: present
+- name: Build docker image for mambo dashboard Api
+  docker_image: 
+    name: handmambo/dashboard-api
     state: present
 - name: Assign rights to services
   file:

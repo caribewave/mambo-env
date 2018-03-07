@@ -4,10 +4,9 @@ Requires=docker.service network-online.target
 After=docker.service network-online.target
 
 [Service]
-WorkingDirectory=/etc/compose
+WorkingDirectory=/opt/mambo
 Type=oneshot
 RemainAfterExit=yes
-
 
 ExecStart=/usr/bin/docker-compose -f /opt/mambo/mambo.yml up --force-recreate -d
 ExecStop=/usr/bin/docker-compose -f /opt/mambo/mambo.yml down

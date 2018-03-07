@@ -19,7 +19,7 @@ Vagrant.configure(2) do |config|
   # Add another bridged network, which allows communication with local area network
   config.vm.network "public_network"
   # Map specific ports onto host
-  config.vm.network "forwarded_port", guest: 80, host: 8080
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
 
   config.vm.hostname = "mambo"
   

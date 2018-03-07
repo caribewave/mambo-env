@@ -37,4 +37,7 @@
     append: yes
 
 - name: Make sure Docker is running
-  service: name=docker state=started
+  service: 
+    name: docker 
+    state: started 
+    enabled: yes

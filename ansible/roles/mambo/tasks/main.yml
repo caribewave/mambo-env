@@ -33,18 +33,27 @@
     state: present
 - name: Build docker image for mambo tile Api
   docker_image: 
-    name: hello-world
+    name: handmambo/tile-api
     state: present
 - name: Build docker image for mambo dashboard Website
   docker_image: 
     name: handmambo/dashboard-www
     state: present
-- name: Build docker image for mambo dashboard Api
+- name: Build docker image for mambo sensor Api
   docker_image: 
-    name: handmambo/dashboard-api
+    name: handmambo/sensor-api
     state: present
 - name: Assign rights to services
   file:
     path: /etc/systemd/system
     recurse: yes
     mode: 0755
+- name: Make sure Mambo is running
+  service: 
+    name: mambo
+    state: started 
+    enabled: yes
+- name: Disable SELinux
+  selinux:
+    policy: targeted
+    state: disabled

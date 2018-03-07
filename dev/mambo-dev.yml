@@ -68,8 +68,4 @@ services:
         max-size: 4m
         max-file: "10"
     volumes:
-      - /etc/mambo/tile-api:/opt/mambo/conf:ro
-      - /opt/mambo/tiles:/opt/mambo/tiles
-      - /opt/mambo/assets:/opt/mambo/assets
-      - /opt/mambo/imagery/tmp_drone_imgs:/opt/mambo/imagery/images
-      - /opt/mambo/imagery/tmp_orthophoto_tif:/opt/mambo/imagery/orthophoto
+      - conf/tile-api:/opt/mambo/conf:ro

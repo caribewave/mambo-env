@@ -33,3 +33,23 @@ N.B.: you may have to input your **sudo password**. Otherwise, run vagrant up un
 Once all the steps are done, check everything works by browsing http://mambo.jawg.io.local
 
 You can log into your vagrant machine by typing ```vagrant ssh```
+
+## Development environment
+
+To boostrap your development environment, do the following:
+
+Pre-requirements:
+ * Install docker-ce
+ * Install npm
+ * Create **mambo** directory
+ * Clone existing mambo-X repositories on https://github.com/caribewave
+
+Run the database using docker: `docker run -d -p 27017:27017 --name mambo-mongo mongo`  
+Then go to **mambo-sensor-api**, and run `npm install`, then `npm start`  
+Then go to **mambo-tile-api**, and run `npm install`, then `npm start`  
+Then go to **mambo-dashboard-www**, and run `npm install`, then `npm start`  
+
+You're ready to go!
+
+
+

@@ -1,0 +1,6 @@
+all:
+  hosts:
+    mambo:
+      ansible_host: 10.0.0.1
+      ansible_connection: ssh        
+      ansible_user: vagrant

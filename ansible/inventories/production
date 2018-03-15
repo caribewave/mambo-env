@@ -1,0 +1,6 @@
+all:
+  hosts:
+    mambo:
+      ansible_host: mambo.jawg.io
+      ansible_connection: ssh        
+      ansible_user: mambo

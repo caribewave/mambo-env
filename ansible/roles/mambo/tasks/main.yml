@@ -13,6 +13,12 @@
   file: path=/opt/mambo/imagery/tmp_drone_imgs state=directory mode=0755
 - name: "Create mambo conf directory"
   file: path=/etc/mambo state=directory mode=0755
+- name: Copy mambo settings files for sensor-api
+  copy: src=etc/sensor-api/ dest=/etc/mambo/sensor-api/
+- name: Copy mambo settings files for tile-api
+  copy: src=etc/tile-api/ dest=/etc/mambo/tile-api/  
+- name: Copy mambo settings files for dashboard-www
+  copy: src=etc/dashboard-www/ dest=/etc/mambo/dashboard-www/
 - name: Copy mambo docker-compose file
   copy: src=mambo.yml dest=/opt/mambo/mambo.yml
 - name: Copy mambo service
@@ -48,12 +54,12 @@
     path: /etc/systemd/system
     recurse: yes
     mode: 0755
+- name: Disable SELinux
+  selinux:
+    policy: targeted
+    state: disabled
 - name: Make sure Mambo is running
   service: 
     name: mambo
     state: started 
     enabled: yes
-- name: Disable SELinux
-  selinux:
-    policy: targeted
-    state: disabled

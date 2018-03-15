@@ -1,0 +1,4 @@
+---
+- name: start mambo
+  service: name=mambo state=restarted
+  become: true

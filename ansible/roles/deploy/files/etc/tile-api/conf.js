@@ -9,13 +9,11 @@ module.exports = {
     "database": "tile"
   },
   "defaultLayers": {
-    "jawg4mambo": {
-      "label": "Jawg 4 Mambo",
+    "jawg": {
+      "label": "Jawg Streets",
       "type": "proxy",
       "retina": true,
-      "default": true,
-      "display": true,
-      "source": "https://tile.jawg.io/dcf4c7bc-8370-4671-9e68-726b8d6661c0/{z}/{x}/{y}@2x.png?access-token=IP0rUgIapE6RZqf8827e2LbmEVFqUaVzKHQSHBKzkAGDh02VWvFK7x6H5nsAm47c"
+      "source": "http://tile.jawg.io/jawg-streets/{z}/{x}/{y}@2x.png?access-token=community"
     },
     "osm": {
       "label": "OpenStreetMap",

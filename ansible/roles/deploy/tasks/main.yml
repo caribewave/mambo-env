@@ -1,0 +1,40 @@
+---
+- name: Copy mambo settings files for sensor-api
+  copy: src=etc/sensor-api/conf.js dest=/etc/mambo/sensor-api/conf.js
+- name: Copy mambo settings files for tile-api
+  copy: src=etc/tile-api/conf.js dest=/etc/mambo/tile-api/conf.js  
+- name: Copy mambo settings files for dashboard-www
+  copy: src=etc/dashboard-www/conf.js dest=/etc/mambo/dashboard-www/conf.js
+- name: Copy mambo docker-compose file
+  copy: src=mambo.yml dest=/opt/mambo/mambo.yml
+- name: Copy mambo service
+  copy: src=mambo.service dest=/etc/systemd/system/mambo.service
+- name: Build docker image for mambo tile Api
+  docker_image: 
+    name: handmambo/tile-api
+    state: present
+    force: yes
+- name: Build docker image for mambo dashboard Website
+  docker_image: 
+    name: handmambo/dashboard-www
+    state: present
+    force: yes
+- name: Build docker image for mambo sensor Api
+  docker_image: 
+    name: handmambo/sensor-api
+    state: present
+    force: yes
+- name: Assign rights to services
+  file:
+    path: /etc/systemd/system
+    recurse: yes
+    mode: 0755
+- name: Disable SELinux
+  selinux:
+    policy: targeted
+    state: disabled
+- name: Make sure Mambo is running
+  service: 
+    name: mambo
+    state: restarted 
+    enabled: yes
